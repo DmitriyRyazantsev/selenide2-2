@@ -23,18 +23,18 @@ public class DeliveryCard {
 
     @Test
     void shouldDeliveryCartTest() {
-//        String planningDate = generateDate(4);
+      String planningDate = generateDate(4);
         open("http://localhost:9999/");
         $("[data-test-id='city'] [placeholder='Город']").setValue("Ростов-на-Дону");
         $("[class='input__box'] [placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[class='input__box'] [placeholder='Дата встречи'] ").setValue("15072023");
+        $("[class='input__box'] [placeholder='Дата встречи'] ").sendKeys(planningDate);
         $("[data-test-id=name] [type=text]").setValue("Петров Петр");
         $("[class='input__control'][name='phone']").setValue("+79280000000");
         $("[data-test-id=agreement]").click();
         $("[role=button] .button__content").click();
         $(byText("Успешно!")).shouldBe(visible, Duration.ofSeconds(15));
-//       $(".notification__content")
-//                .shouldHave(Condition.text("Встреча успешно забронирована на 15072023"), Duration.ofSeconds(15))
-//                .shouldBe(Condition.visible);;
+       $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);;
     }
 }
